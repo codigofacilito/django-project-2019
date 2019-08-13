@@ -1,0 +1,70 @@
+{% url 'login' as login %}
+{% url 'register' as register %}
+{% url 'carts:cart' as cart %}
+{% url 'shipping_addresses:shipping_addresses' as shipping_addresses %}
+{% url 'orders:completeds' as completeds %}
+{% url 'billing_profiles:billing_profiles' as billing_profiles %}
+
+<nav class="navbar navbar-expand-md bg-dark navbar-dark">
+  <a href="{% url 'index' %}" class="navbar-brand">Facilito Store</a>
+
+  <button type="button" name="button" class="navbar-toggler navbar-toggler-right" data-toggle="collapse" data-target="#navb">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div id="navb" class="navbar-collapse collapse hide">
+
+    <ul class="navbar-nav">
+      <li class="nav-item {% if request.path == cart%}active{% endif %}">
+        <a class="nav-link" href="{{ cart }}">
+          Mi carrito <span class="fas fa-shopping-cart"></span>
+        </a>
+      </li>
+      {% if user.is_authenticated %}
+
+        <li class="nav-item {% if request.path == shipping_addresses%}active{% endif %}">
+          <a class="nav-link" href="{{ shipping_addresses }}">
+            Mis direcciones <span class="fas fa-location-arrow"></span>
+          </a>
+        </li>
+
+        <li class="nav-item {% if request.path == completeds %}active{% endif %}">
+          <a class="nav-link" href="{{ completeds }}">
+            Mis pedidos <span class="fas fa-shipping-fast"></span>
+          </a>
+        </li>
+
+        <li class="nav-item {% if request.path == billing_profiles %}active{% endif %}">
+          <a class="nav-link" href="{{ billing_profiles }}">
+            Mis métodos de pago <span class="fab fa-cc-stripe"></span>
+          </a>
+        </li>
+
+      {% endif %}
+    </ul>
+
+    <ul class="nav navbar-nav ml-auto">
+      {% if user.is_authenticated %}
+        <li class="navbar-item">
+          <a href="{% url 'logout' %}" class="nav-link">
+            <span class="fas fa-sign-in-alt"></span>
+            Logout</a>
+        </li>
+      {% else %}
+        <li class="navbar-item {% if request.path == login %}active{% endif %}">
+          <a href="{{ login }}" class="nav-link">
+            <span class="fas fa-user"></span>
+            Login</a>
+        </li>
+
+        <li class="navbar-item {% if request.path == register %}active{% endif %}">
+          <a href="{{ register }}" class="nav-link">
+            <span class="fas fa-user-plus"></span>
+            Registro</a>
+        </li>
+      {% endif %}
+    </ul>
+
+  </div>
+
+</nav>

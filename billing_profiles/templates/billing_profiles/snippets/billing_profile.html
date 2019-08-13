@@ -1,0 +1,13 @@
+<div class="card">
+  <div class="card-body">
+    <h5 class="card-title">{{ billing_profile.brand }}</h5>
+    <h6 class="card-subtitle">
+      Terminación {{ billing_profile.last4 }}
+    </h6>
+    <div class="mt-2 text-info">
+      {% if billing_profile.default %}
+        Dirección principal
+      {% endif %}
+    </div>
+  </div>
+</div>

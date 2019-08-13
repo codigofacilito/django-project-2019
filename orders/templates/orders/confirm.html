@@ -1,0 +1,119 @@
+{% extends 'base.html' %}
+
+{% block breadcrumb %}
+  {% include 'orders/snippets/breadcrumb.html' %}
+{% endblock %}
+
+{% block content %}
+  <div class="col-8">
+    <div class="h3">
+      Confirma tu pedido
+    </div>
+
+    <div class="card">
+      <div class="card-body">
+        <div class="row">
+
+          <div class="col-4">
+            <div class="font-weight-bold">
+              Dirección de envío
+            </div>
+            <div class="cart-text">
+              {{ shipping_address.address }}
+            </div>
+            <div class="card-text">
+              {{ shipping_address.line1 }}
+            </div>
+            <div class="card-text">
+              {{ shipping_address.reference }}
+            </div>
+            <div class="card-text">
+              {{ shipping_address.postal_code }}
+            </div>
+          </div>
+          <div class="col-4">
+            <div class="font-weight-bold">
+              Método de pago
+            </div>
+            <div class="card-text">
+              Tarjeta terminación {{ order.billing_profile.last4 }}
+            </div>
+          </div>
+          <div class="col-4">
+            <div class="font-weight-bold">
+              Código Promocional
+            </div>
+
+            <form id="promocode-form" action="{% url 'promo_codes:validate' %}">
+              <input type="text" name="code" value="{{ order.promo_code.code }}" class="form-control" placeholder="código promoción" {% if order.promo_code %}readonly{% endif %}>
+            </form>
+            <div class="text-success" id="promocode-success" style="font-size:14px">
+              {% if order.promo_code %}
+                Código aplicado exitosamente
+              {% endif %}
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="mt-3">
+      <div class="card">
+        <div class="card-body">
+          {% for product in cart.products.all %}
+            {% include 'orders/snippets/product.html' %}
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+
+
+  </div>
+  <div class="col">
+    {% url 'orders:complete' as next_url %}
+    {% include 'orders/snippets/resume.html' with next_url=next_url %}
+    <div class="mt-2">
+      <a href="{% url 'orders:cancel' %}" class="btn btn-danger">Cancerlar orden</a>
+    </div>
+  </div>
+{% endblock %}
+
+{% block javascript %}
+  <script>
+    const form = document.getElementById('promocode-form')
+
+    form.addEventListener('submit', function(e){
+      e.preventDefault()
+
+      const input = this.code
+      const code = input.value
+      const url = this.action + "?code=" + code
+      const div_total = document.getElementById('order-total')
+      const div_success = document.getElementById('promocode-success')
+
+      fetch(url)
+        .then(response => response.json() )
+        .then(response => {
+
+          if(response.status === true){
+            //Success
+            div_total.innerHTML = "$" + response.total
+
+            div_success.classList.remove('text-danger')
+            div_success.classList.add('text-success')
+
+            div_success.innerHTML = 'Código aplicado exitosamente'
+
+            input.readOnly = true
+
+          }else{
+            div_success.innerHTML = 'Código no valido'
+            div_success.classList.remove('text-success')
+            div_success.classList.add('text-danger')
+          }
+
+        })
+    })
+  </script>
+{% endblock %}

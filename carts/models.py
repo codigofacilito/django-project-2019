@@ -13,6 +13,7 @@ from django.db.models.signals import post_save
 from django.db.models.signals import m2m_changed
 
 class Cart(models.Model):
+    id = models.AutoField(primary_key=True)
     cart_id = models.CharField(max_length=100, null=False, blank=False, unique=True)
     user = models.ForeignKey(User, null=True, blank=True, on_delete=models.CASCADE)
     products = models.ManyToManyField(Product, through='CartProducts')
@@ -64,6 +65,7 @@ class CartProductsManager(models.Manager):
         return object
 
 class CartProducts(models.Model):
+    id = models.AutoField(primary_key=True)
     cart = models.ForeignKey(Cart, on_delete=models.CASCADE)
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     quantity = models.IntegerField(default=1)

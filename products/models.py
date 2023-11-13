@@ -5,6 +5,7 @@ from django.utils.text import slugify
 from django.db.models.signals import pre_save
 
 class Product(models.Model):
+    id = models.AutoField(primary_key=True)
     title = models.CharField(max_length=50)
     description = models.TextField()
     price = models.DecimalField(max_digits=8, decimal_places=2, default=0.0)

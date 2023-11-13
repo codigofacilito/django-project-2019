@@ -15,6 +15,7 @@ from .common import choices
 from django.db.models.signals import pre_save
 
 class Order(models.Model):
+    id = models.AutoField(primary_key=True)
     order_id = models.CharField(max_length=100, null=False, blank=False, unique=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     cart = models.ForeignKey(Cart, on_delete=models.CASCADE)

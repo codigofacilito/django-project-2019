@@ -13,6 +13,7 @@ class PromoCodeManager(models.Manager):
         return self.filter(code=code).filter(used=False).filter(valid_from__lte=now).filter(valid_to__gte=now).first()
 
 class PromoCode(models.Model):
+    id = models.AutoField(primary_key=True)
     code = models.CharField(max_length=50, unique=True)
     discount = models.FloatField(default=0.0)
     valid_from = models.DateTimeField()

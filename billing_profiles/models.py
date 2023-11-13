@@ -18,6 +18,7 @@ class BillingProfileManager(models.Manager):
                                 default=not user.has_billing_profiles())
 
 class BillingProfile(models.Model):
+    id = models.AutoField(primary_key=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     token = models.CharField(max_length=50, null=False, blank=False)
     card_id = models.CharField(max_length=50, null=False, blank=False)

@@ -3,6 +3,7 @@ from django.db import models
 from products.models import Product
 
 class Category(models.Model):
+    id = models.AutoField(primary_key=True)
     title = models.CharField(max_length=50)
     description = models.TextField()
     products = models.ManyToManyField(Product, blank=True)

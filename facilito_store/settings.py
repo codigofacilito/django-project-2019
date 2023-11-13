@@ -15,6 +15,8 @@ import os
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
+#para solucionar el tema de las primary keys
+DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
@@ -127,7 +129,7 @@ from decouple import config
 
 EMAIL_HOST = 'smtp.googlemail.com'
 EMAIL_PORT = 587
-EMAIL_HOST_USER = 'eduardo78d@gmail.com'
+EMAIL_HOST_USER = 'dam.laplata@gmail.com'
 EMAIL_HOST_PASSWORD = config('USER_MAIL_PASSWORD') #Env
 EMAIL_USE_TLS = True
 

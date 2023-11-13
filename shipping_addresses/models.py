@@ -3,6 +3,7 @@ from django.db import models
 from users.models import User
 
 class ShippingAddress(models.Model):
+    id = models.AutoField(primary_key=True)
     user = models.ForeignKey(User, null=False, blank=False, on_delete=models.CASCADE)
     line1 = models.CharField(max_length=200)
     line2 = models.CharField(max_length=200, blank=True)

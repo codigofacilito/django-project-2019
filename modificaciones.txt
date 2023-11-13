@@ -6,3 +6,8 @@ TAREAS:
 -VER EL LOGIN QUE FALTA PARA QUE UN USUARIO VENDEDOR PUEDA AGREGAR PRODUCTOS
 -MODIFCAR LOS NOMBRES DE TODO Y HACERLO MAS PERSONAL
 -
+
+-Error de las tablas arreglado.
+
+Funcionamiento
+python manage.py runserver

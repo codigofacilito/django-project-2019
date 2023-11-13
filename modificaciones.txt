@@ -11,3 +11,5 @@ TAREAS:
 
 Funcionamiento
 python manage.py runserver
+
+añldkjñdlkafjada
